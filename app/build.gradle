@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.github.nukc.loadmorewrapper.sample"
-        minSdkVersion 9
+        minSdkVersion 14
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -29,6 +29,9 @@ dependencies {
     compile "com.android.support:design:${supportLibVersion}"
     compile "com.android.support:recyclerview-v7:${supportLibVersion}"
     compile "com.android.support:support-v4:${supportLibVersion}"
+    compile ('com.alibaba.android:vlayout:1.2.2@aar') {
+        transitive = true
+    }
     compile project(':loadmorewrapper');
     testCompile 'junit:junit:4.12'
 }

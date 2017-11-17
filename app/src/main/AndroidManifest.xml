@@ -18,6 +18,7 @@
         <activity android:name=".SampleActivity" />
         <activity android:name=".Issue9Activity" />
         <activity android:name=".AnotherActivity" />
+        <activity android:name="com.treasure.loadmore.sample.VLayoutRefreshAndLoadMoreActivity" />
     </application>
 
 </manifest>

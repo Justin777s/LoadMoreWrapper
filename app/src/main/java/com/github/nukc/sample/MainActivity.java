@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.treasure.loadmore.sample.VLayoutRefreshAndLoadMoreActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -14,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btn_default).setOnClickListener(mOnClickListener);
         findViewById(R.id.btn_another).setOnClickListener(mOnClickListener);
         findViewById(R.id.btn_issues).setOnClickListener(mOnClickListener);
+        findViewById(R.id.btn_vlayout).setOnClickListener(mOnClickListener);
     }
 
     private View.OnClickListener mOnClickListener = new View.OnClickListener() {
@@ -29,6 +32,9 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case R.id.btn_issues:
                     cls = Issue9Activity.class;
+                    break;
+                case R.id.btn_vlayout:
+                    cls = VLayoutRefreshAndLoadMoreActivity.class;
                     break;
             }
             startActivity(new Intent(MainActivity.this, cls));
