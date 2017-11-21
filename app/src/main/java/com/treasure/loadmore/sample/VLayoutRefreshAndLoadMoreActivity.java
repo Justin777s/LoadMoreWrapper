@@ -32,14 +32,15 @@ public class VLayoutRefreshAndLoadMoreActivity extends BasePagingActivity implem
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private LoadMoreAdapter mLoadMoreAdapter;
     private VLayoutAdapter mVLayoutAdapter;
-    private Handler mHander;
+    private Handler mHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vlayout_refresh_loadmore);
+        setTitle(R.string.vlayout_usage);
 
-        mHander = new Handler(getMainLooper());
+        mHandler = new Handler(getMainLooper());
 
         mSwipeRefreshLayout =
                 (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
@@ -54,23 +55,24 @@ public class VLayoutRefreshAndLoadMoreActivity extends BasePagingActivity implem
         mRecyclerView.setRecycledViewPool(viewPool);
         viewPool.setMaxRecycledViews(0, 10);
 
-        DelegateAdapter mDelegateAdapter = new DelegateAdapter(layoutManager);
-        mLoadMoreAdapter = LoadMoreWrapper.with(mDelegateAdapter)
-                .setShowNoMoreEnabled(true)
-                .setListener(this)
-                .into(mRecyclerView);
         List<DelegateAdapter.Adapter> adapters = new ArrayList<>();
         // vlayout的使用 https://github.com/alibaba/vlayout/blob/master/README.md
         mVLayoutAdapter = new VLayoutAdapter();
         adapters.add(mVLayoutAdapter);
+        DelegateAdapter mDelegateAdapter = new DelegateAdapter(layoutManager);
         mDelegateAdapter.setAdapters(adapters);
+        mLoadMoreAdapter = LoadMoreWrapper.with(mDelegateAdapter)
+                .setLoadMoreEnabled(false)
+                .setListener(this)
+                .into(mRecyclerView);
+        if (!mSwipeRefreshLayout.isRefreshing()) {
+            mSwipeRefreshLayout.setRefreshing(true);
+        }
         loadData();
     }
 
     @Override
     public void onRefresh() {
-        mLoadMoreAdapter.setLoadMoreEnabled(true);
-        mLoadMoreAdapter.setShowNoMoreEnabled(true);
         resetPageNum();
         loadData();
     }
@@ -80,37 +82,42 @@ public class VLayoutRefreshAndLoadMoreActivity extends BasePagingActivity implem
         loadData();
     }
 
-    @Override
-    public void noMoreData() {
-        mLoadMoreAdapter.setLoadMoreEnabled(false);
-    }
-
     private void loadData() {
-        setPages(5);
-        mHander.postDelayed(new Runnable() {
+        mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (mSwipeRefreshLayout.isRefreshing()) {
-                    mSwipeRefreshLayout.setRefreshing(false);
-                }
-
+                setPages(3);
                 if (getCurrentPageNum() == 1) {
                     mVLayoutAdapter.clear();
                 } else {
                     mVLayoutAdapter.addItem();
                 }
                 setNextPageNum();
+                if (resetRefreshing()) {
+                    if (!mLoadMoreAdapter.getLoadMoreEnabled()) {
+                        mLoadMoreAdapter.setLoadMoreEnabled(true);
+                    }
+                }
             }
-        }, 2000);
+        }, 1000);
+    }
+
+    private boolean resetRefreshing() {
+        if (mSwipeRefreshLayout.isRefreshing()) {
+            mSwipeRefreshLayout.setRefreshing(false);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public LoadMoreAdapter getLoadMoreAdapter() {
+        return mLoadMoreAdapter;
     }
 
     private static class VLayoutAdapter extends DelegateAdapter.Adapter<RecyclerView.ViewHolder> {
 
         private int mCount;
-
-        public VLayoutAdapter() {
-            mCount = PAGE_SIZE;
-        }
 
         @Override
         public LayoutHelper onCreateLayoutHelper() {
@@ -134,12 +141,8 @@ public class VLayoutRefreshAndLoadMoreActivity extends BasePagingActivity implem
         }
 
         public void clear() {
-            final int count = mCount;
-            mCount = 0;
-            notifyItemRangeRemoved(0, count);
-
             mCount = PAGE_SIZE;
-            notifyItemRangeInserted(0, mCount);
+            notifyDataSetChanged();
         }
 
         public void addItem() {

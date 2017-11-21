@@ -12,8 +12,9 @@ make recyclerView supports load more and customize the footer view, without chan
 - 支持自定义加载视图
 - 当 layoutManager 为 Grid 和 StaggeredGrid 的时候, 加载更多视图 footerView 仍占据一行
 - 支持设置是否显示没有更多视图，可自定义
+- 支持vlayout library分页（注：这个功能不能以插件方式引入到项目中，只能手动引入。使用方式请参考 [VLayoutRefreshAndLoadMoreActivity](https://github.com/treasure-lau/LoadMoreWrapper/blob/master/app/src/main/java/com/treasure/loadmore/sample/VLayoutRefreshAndLoadMoreActivity.java)）
 
-<img src="https://raw.githubusercontent.com/nukc/LoadMoreWrapper/master/images/item.gif"><img src="https://raw.githubusercontent.com/nukc/LoadMoreWrapper/master/images/grid_custom.gif"><img src="https://raw.githubusercontent.com/nukc/LoadMoreWrapper/master/images/staggeredgrid.gif">
+<img src="https://raw.githubusercontent.com/nukc/LoadMoreWrapper/master/images/vlayout.gif"><img src="https://raw.githubusercontent.com/nukc/LoadMoreWrapper/master/images/item.gif"><img src="https://raw.githubusercontent.com/nukc/LoadMoreWrapper/master/images/grid_custom.gif"><img src="https://raw.githubusercontent.com/nukc/LoadMoreWrapper/master/images/staggeredgrid.gif">
 
 ## Installation
 
@@ -101,6 +102,12 @@ getNoMoreView | 获取没有更多视图
 
 注意：当加载完全部后且已 setLoadMoreEnabled(false)，但如果由于生命周期或其他问题而导致 View 重建，mLoadMoreEnabled 依然为 true。
 这时候应该需要保存 mLoadMoreEnabled 的状态，如果是 ViewPager + Fragment，可以使用 setOffscreenPageLimit 进行解决。
+
+## 感谢
+
+[alibaba / vlayout](https://github.com/alibaba/vlayout)
+
+[nukc / LoadMoreWrapper](https://github.com/nukc/LoadMoreWrapper)
 
 ## License
 

@@ -57,11 +57,26 @@ public abstract class BasePagingActivity extends AppCompatActivity implements IP
     }
 
     @Override
+    public void noMoreData() {
+        if (getLoadMoreAdapter() != null) {
+            getLoadMoreAdapter().setLoadMoreEnabled(false);
+            if (!getLoadMoreAdapter().getShowNoMoreEnabled()) getLoadMoreAdapter().setShowNoMoreEnabled(true);
+            getLoadMoreAdapter().getOriginalAdapter().notifyDataSetChanged();
+        }
+    }
+
+    @Override
     public void onLoadMore(LoadMoreAdapter.Enabled enabled) {
-        if (pagingUtil.getPages() >= getCurrentPageNum()) {
-            onLoadMore();
+        if (enabled.getLoadMoreEnabled()) {
+            if (pagingUtil.getPages() >= getCurrentPageNum()) {
+                onLoadMore();
+            } else {
+                noMoreData();
+            }
         } else {
-            noMoreData();
+            if (getLoadMoreAdapter() != null) {
+                getLoadMoreAdapter().getOriginalAdapter().notifyDataSetChanged();
+            }
         }
     }
 }

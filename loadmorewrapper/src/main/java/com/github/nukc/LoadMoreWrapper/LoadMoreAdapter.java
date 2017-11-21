@@ -304,6 +304,10 @@ public class LoadMoreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         mShouldRemove = shouldRemove;
     }
 
+    public boolean getShowNoMoreEnabled() {
+        return mShowNoMoreEnabled;
+    }
+
     public void setShowNoMoreEnabled(boolean showNoMoreEnabled) {
         mShowNoMoreEnabled = showNoMoreEnabled;
     }

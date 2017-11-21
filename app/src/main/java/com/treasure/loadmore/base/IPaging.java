@@ -41,4 +41,6 @@ public interface IPaging extends LoadMoreAdapter.OnLoadMoreListener {
      * 没有更多的数据
      */
     void noMoreData();
+
+    LoadMoreAdapter getLoadMoreAdapter();
 }
