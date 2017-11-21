@@ -14,7 +14,9 @@ make recyclerView supports load more and customize the footer view, without chan
 - 支持设置是否显示没有更多视图，可自定义
 - 支持vlayout library分页（注：这个功能不能以插件方式引入到项目中，只能手动引入。使用方式请参考 [VLayoutRefreshAndLoadMoreActivity](https://github.com/treasure-lau/LoadMoreWrapper/blob/master/app/src/main/java/com/treasure/loadmore/sample/VLayoutRefreshAndLoadMoreActivity.java)）
 
-<img src="https://raw.githubusercontent.com/nukc/LoadMoreWrapper/master/images/vlayout.gif"><img src="https://raw.githubusercontent.com/nukc/LoadMoreWrapper/master/images/item.gif"><img src="https://raw.githubusercontent.com/nukc/LoadMoreWrapper/master/images/grid_custom.gif"><img src="https://raw.githubusercontent.com/nukc/LoadMoreWrapper/master/images/staggeredgrid.gif">
+<img src="https://github.com/treasure-lau/LoadMoreWrapper/blob/master/images/vlayout.gif?raw=true">
+
+<img src="https://raw.githubusercontent.com/nukc/LoadMoreWrapper/master/images/item.gif"><img src="https://raw.githubusercontent.com/nukc/LoadMoreWrapper/master/images/grid_custom.gif"><img src="https://raw.githubusercontent.com/nukc/LoadMoreWrapper/master/images/staggeredgrid.gif">
 
 ## Installation
 
